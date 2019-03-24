@@ -24,7 +24,7 @@ const Todo = props => {
             console.log(res)
         })
         .catch(err=>{
-            
+            console.log(err)
         })
     }
 
