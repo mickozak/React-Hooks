@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import axios from 'axios'
 
 const Todo = props => {
 
@@ -18,6 +19,13 @@ const Todo = props => {
     const todoAddHandler = () =>{
         setTodoList(todoList.concat(todoName))
         //setTodoState({userInput: todoState.userInput, todoList: todoState.todoList.concat(todoState.userInput)})
+        axios.post('https://hooks2.firebaseio.com/todos.json', {name: todoName})
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
 
     return <React.Fragment>
