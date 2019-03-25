@@ -40,7 +40,10 @@ const Todo = props => {
     },[])
 
     useEffect(()=>{
-        setTodoList(todoList.concat(submittedTodo))
+        if(submittedTodo){
+            setTodoList(todoList.concat(submittedTodo))
+        }
+        
     }, [submittedTodo])
 
     const inputChangeHandler = (event) => {
