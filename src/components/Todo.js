@@ -4,6 +4,7 @@ import axios from 'axios'
 const Todo = props => {
 
     const [todoName, setTodoName] = useState('')
+    const [submittedTodo, setSubmittedTodo] = useState(null)
     const [todoList, setTodoList] = useState([])
 
     //const [todoState, setTodoState] = useState({
@@ -38,17 +39,22 @@ const Todo = props => {
         }
     },[])
 
+    useEffect(()=>{
+        setTodoList(todoList.concat(submittedTodo))
+    }, [submittedTodo])
+
     const inputChangeHandler = (event) => {
         setTodoName(event.target.value)
         //setTodoState({userInput: event.target.value, todoList: todoState.todoList})
     }
 
     const todoAddHandler = () =>{
-        setTodoList(todoList.concat(todoName))
+        
         //setTodoState({userInput: todoState.userInput, todoList: todoState.todoList.concat(todoState.userInput)})
         axios.post('https://hooks2.firebaseio.com/todos.json', {name: todoName})
         .then(res=>{
-            console.log(res)
+            const todoItem = {id: res.data.name, name: todoName}
+            setSubmittedTodo(todoItem)
         })
         .catch(err=>{
             console.log(err)
